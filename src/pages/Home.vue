@@ -11,6 +11,7 @@
                 </el-col>
             </el-row>
         </div>
+        
     </div>
 </template>
 
@@ -21,7 +22,7 @@
     export default {
         name: "Home",
         components:{
-            Header,RightList
+            Header, RightList
         },
         data() {
             return {
