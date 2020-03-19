@@ -88,7 +88,7 @@
                 // console.log('关于我',msg);
                 that.$store.state.aboutMeObj = msg;
             })
-            // axios.get('http://localhost:3000/blog/api/articals/'+'5e71bff0a1cb0803813ea8d2').then(num=>{
+            // axios.get('http://localhost:3000/blog/api/articles/'+'5e71bff0a1cb0803813ea8d2').then(num=>{
             //     window.console.info(num);
             // })
         },

@@ -8,6 +8,7 @@ import './assets/css/reset.css'
 
 //引入element-ui
 import ElementUI from 'element-ui'
+import './theme/index.css'
 
 require("./mock");
 

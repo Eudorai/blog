@@ -57,14 +57,51 @@ const GetLike = (callback) => {
 };
 
 //查询网址点赞总数
-const showLikeData = (callback) =>{
+const showLikeData = (callback) => {
     let url = portUrl + '/show_like';
     axios.get(url).then(num => {
-        if(num.status === 200){
+        if (num.status === 200) {
             // console.log(num.data,parseInt(num.data));
             callback && callback(num.data.data);
-        }else{
+        } else {
             window.console.info("查询失败");
+        }
+    })
+};
+
+//初始化时间
+const initDate = (oldDate, full) => {
+    const odate = new Date(oldDate);
+    const year = odate.getFullYear();
+    const month = odate.getMonth() < 9 ? '0' + (odate.getMonth() + 1) : odate.getMonth() + 1;
+    const date = odate.getDate() < 10 ? '0' + odate.getDate() : odate.getDate();
+    if (full === 'all') {
+        const t = oldDate.split(" ")[0];
+        // console.log(oldDate,t.split('-')[0],t.split('-')[1],t.split('-')[2]);
+        return t.split('-')[0] + '年' + t.split('-')[1] + '月' + t.split('-')[2] + '日';
+    } else if (full === 'year') {
+        return year
+    } else if (full === 'month') {
+        return month
+    } else if (full === 'date') {
+        return date
+    } else if (full === 'newDate') {
+        return year + '年' + month + '月' + date + '日';
+    }
+};
+
+//查询文章列表
+const ShowArticleAll = (articleName,callback) =>{
+    let url = '';
+    //articleName 不为''时，即查询
+    if(articleName){
+        url = portUrl + '/articles?title='+articleName;
+    }else{
+        url = portUrl + '/articles';
+    }
+    axios.get(url).then(num => {
+        if (num.status === 200) {
+            callback && callback(num.data);
         }
     })
 }
@@ -76,4 +113,6 @@ export {
     AboutMeData,//关于我文章编写
     showLikeData,//do you like me
     GetLike,//设置 do you like me
+    initDate,//设置时间
+    ShowArticleAll,//查询文章列表
 }

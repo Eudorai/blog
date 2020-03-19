@@ -86,12 +86,17 @@
         position: relative;
     }
 
+    /*.right-list section{*/
+    /*    top: 24px;*/
+    /*    position: sticky;*/
+    /*}*/
+
     .right-list section {
         transition: all 0.2s linear;
         position: relative;
         background: #fff;
         padding: 15px;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         border-radius: 5px;
     }
 
@@ -151,7 +156,7 @@
 
     .right-list .r1-body .catch-me a:hover i {
         color: #fff;
-        background: #F4692C;
+        background: #97dffd;
     }
 
     .right-list .r1-body .catch-me a i {
