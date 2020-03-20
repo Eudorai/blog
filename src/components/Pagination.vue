@@ -1,4 +1,5 @@
 <template>
+    <!-- 分页器 -->
     <div class="pagination">
         <!-- pager-count指页码按钮的数量，当总页数超过该值时会折叠，文档规定其应是大于等于5且小于等于21的奇数，默认值是7 -->
         <el-pagination

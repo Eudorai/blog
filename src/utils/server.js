@@ -91,12 +91,12 @@ const initDate = (oldDate, full) => {
 };
 
 //查询文章列表
-const ShowArticleAll = (articleName,callback) =>{
+const ShowArticleAll = (articleName, callback) => {
     let url = '';
     //articleName 不为''时，即查询
-    if(articleName){
-        url = portUrl + '/articles?title='+articleName;
-    }else{
+    if (articleName) {
+        url = portUrl + '/articles?title=' + articleName;
+    } else {
         url = portUrl + '/articles';
     }
     axios.get(url).then(num => {
@@ -104,7 +104,63 @@ const ShowArticleAll = (articleName,callback) =>{
             callback && callback(num.data);
         }
     })
-}
+};
+//文章点击收藏 点击喜欢
+const getArtLikeCollect = (userId, artId, isLike, callback) => {
+    let url = '';
+    //收藏
+    if (isLike === 1) {
+        url = portUrl + '/article/collect?user_id=' + userId + '&art_id=' + artId;
+    } else {
+        //点赞
+        url = portUrl + '/article/like?user_id=' + userId + '&art_id=' + artId;
+    }
+    axios.get(url).then(num => {
+        if (num.status === 200) {
+            callback && callback(num.data);
+        } else {
+            window.console.info("查询失败");
+        }
+    })
+};
+
+//查询文章详情
+const getArticleInfo = (artId, userId, callback) => {
+    //如果没有用户id，则点赞收藏数据皆返回false
+    let url = '';
+    if (!userId) {
+        url = portUrl + '/article?art_id=' + artId;
+    } else {
+        url = portUrl + '/article?user_id=' + userId + '&art_id=' + artId;
+    }
+    axios.get(url).then(num => {
+        if (num.status === 200) {
+            callback && callback(num.data.data);
+        } else {
+            window.console.info("查询失败");
+        }
+    })
+};
+
+//文章评论
+const setArticleComment = (content, nickname, article_id, callback) => {
+    let time = new Date().toLocaleString();
+    window.console.info(time);
+    //回复评论
+    let url = portUrl + '/comment?content=' + content + '&nickname=' + nickname + '&article_id=' + article_id + '&time=' + time;
+    axios.get(url).then(num => {
+        callback && callback(num.data);
+    })
+};
+
+//查询文章评论数据
+const ArticleComment = (artId, callback) => {
+    let url = portUrl + '/comment';
+    axios.get(url, {params: {art_id: artId}}).then(num => {
+        callback && callback(num.data);
+    })
+};
+
 
 export {
     getRegister,//注册
@@ -115,4 +171,8 @@ export {
     GetLike,//设置 do you like me
     initDate,//设置时间
     ShowArticleAll,//查询文章列表
+    getArtLikeCollect,//文章收藏 文章点赞
+    getArticleInfo,//文章详情
+    setArticleComment,//设置文章评论
+    ArticleComment,//文章评论列表
 }

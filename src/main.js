@@ -18,6 +18,15 @@ Vue.config.productionTip = false;
 
 window.console.info(sessionStorage);
 
+// 默认图片
+Vue.filter('IMG', function (value) {
+    if (value) {
+        return value;
+    } else {
+        return "https://dxs-pictures.gd2.qingstor.com/pc_image/1533308847-sJINRfclxg.jpeg";
+    }
+});
+
 //拦截request，发请求前带上token
 axios.interceptors.request.use((config) => {
     if (localStorage.token) {

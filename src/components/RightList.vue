@@ -1,4 +1,5 @@
 <template>
+    <!-- 有问题联系我+点赞数 -->
     <div class="right-list">
         <section>
             <div class="r1-head">
@@ -19,9 +20,6 @@
                         </el-tooltip>
                         <el-tooltip class="item" effect="dark" content="微信" placement="top">
                             <a :href="catchMeObj.wechat" target="_blank"><i class="fa fa-fw fa-wechat"></i></a>
-                        </el-tooltip>
-                        <el-tooltip class="item" effect="dark" content="更多" placement="top">
-                            <a href="/about"><i class="el-icon-more"></i></a>
                         </el-tooltip>
                     </div>
                 </div>

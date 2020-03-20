@@ -8,9 +8,8 @@
                                  @select="handleSelect"
                                  :router="true">
                             <el-menu-item index="/home"><i class="fa fa-wa fa-home"></i> 首页</el-menu-item>
+                            <el-menu-item index="/collect"><i class="fa fa-wa fa-heart"></i> 收藏</el-menu-item>
                             <el-menu-item index="/reward"><i class="fa fa-wa fa-cny"></i> 赞赏</el-menu-item>
-                            <el-menu-item index="/message"><i class="fa fa-wa fa-pencil"></i> 留言板</el-menu-item>
-                            <el-menu-item index="/about"><i class="fa fa-wa fa-vcard"></i> 关于</el-menu-item>
                             <div index="" class="pcsearchbox">
                                 <i class="el-icon-search pcsearchicon"></i>
                                 <div class="pcsearchinput" :class="input?'hasSearched':''">
@@ -29,12 +28,6 @@
                                     <ul class="haslogin-info">
                                         <li>
                                             <a href="#/user">个人中心</a>
-                                        </li>
-                                        <li>
-                                            <a href="#/like?like=1">喜欢列表</a>
-                                        </li>
-                                        <li>
-                                            <a href="#/like?like=2">收藏列表</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);" @click="userLogout">退出登录</a>
@@ -134,6 +127,7 @@
                 }
             },
             loginFun: function (msg) { //用户登录和注册跳转
+                //储存当前页面路径，登录成功后跳回来
                 localStorage.setItem('logUrl', this.$route.fullPath);
                 console.log(666, this.$router.currentRoute.fullPath);
                 //注册

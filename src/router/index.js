@@ -3,11 +3,9 @@ import VueRouter from 'vue-router'
 
 const Home = () => import('../pages/Home');
 const Reward = () => import('../pages/Reward');
-const Message = () => import('../pages/Message');
-const About = () => import('../pages/About');
+const Collect = () => import('../pages/Collect');
 const Login = () => import('../pages/Login');
 const User = () => import('../pages/User');
-const Like = () => import('../pages/Like');
 const ArticleDetail = () => import('../pages/ArticleDetail');
 
 
@@ -37,15 +35,10 @@ const routes = [
         name: 'Reward'
     }, //赞赏
     {
-        path: '/message',
-        component: Message,
-        name: 'Message'
-    }, //留言板
-    {
-        path: '/about',
-        component: About,
-        name: 'About'
-    }, //关于
+        path: '/collect',
+        component: Collect,
+        name: 'Collect'
+    }, //收藏
     {
         path: '/login',
         component: Login,
@@ -56,11 +49,7 @@ const routes = [
         component: User,
         name: 'User'
     }, //用户个人中心
-    {
-        path: '/like',
-        component: Like,
-        name: 'Like'
-    } //收藏列表
+
 
 ];
 

@@ -1,10 +1,10 @@
 <template>
-    <div>Like</div>
+    <div>收藏列表</div>
 </template>
 
 <script>
     export default {
-        name: "Like"
+        name: "Collect"
     }
 </script>
 

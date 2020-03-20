@@ -1,6 +1,8 @@
 <template>
+    <!-- 主页 -->
     <div>
         <Header></Header>
+
         <div class="container">
             <el-row :gutter="30">
                 <el-col :sm="24" :md="16" style="transition:all .5s ease-out;margin-bottom:30px;">
@@ -11,20 +13,22 @@
                 </el-col>
             </el-row>
         </div>
+
         <Footer></Footer>
     </div>
+
 </template>
 
 <script>
-    import Header from '../components/Header'
     import ShareList from '../components/ShareList'
     import RightList from '../components/RightList'
+    import Header from '../components/Header'
     import Footer from '../components/Footer'
 
     export default {
         name: "Home",
         components: {
-            Header, ShareList, RightList, Footer
+            Header, Footer, ShareList, RightList
         },
         data() {
             return {}

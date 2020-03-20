@@ -1,4 +1,5 @@
 <template>
+    <!-- 文章列表 -->
     <div>
         <el-row class="sharelistBox">
             <el-col :span="24" class="s-item tcommonBox"
@@ -9,7 +10,7 @@
                     <span class="day" v-html="showInitDate(item.create_time,'date')"></span>
                 </span>
                 <header>
-                    <h1 @click="toDetail(item.id)">
+                    <h1 @click="toDetail(item._id)">
                         {{item.title}}
                     </h1>
                     <h2>
@@ -30,7 +31,7 @@
                     <p>{{item.body}}</p>
                 </div>
                 <div class="viewdetail">
-                    <a class="tcolors-bg" @click="toDetail(item.id)">
+                    <a class="tcolors-bg" @click="toDetail(item._id)">
                         阅读全文>>
                     </a>
                 </div>
@@ -82,7 +83,6 @@
             },
             showSearchShowList: function () {//展示数据
                 let that = this;
-                window.console.info(that.$route.query);
                 that.keywords = that.$store.state.keywords;//获取传参的keywords
                 // console.log(that.classId);
 
