@@ -10,7 +10,6 @@
                 <span class="timeBox">
                     <i class="fa fa-fw fa-user"></i>发表于 <span>{{detailObj.create_time}}</span>
                 </span>
-                <i class="fa fa-fw fa-eye"></i>{{detailObj.browse_count}} 次围观 •
                 <i class="fa fa-fw fa-comments"></i>活捉 {{detailObj.comment_count}} 条评论 •
                 <span class="rateBox">
                     <i class="fa fa-fw fa-heart"></i>{{likeCount}}点赞
@@ -86,7 +85,32 @@
                 // console.log(detailObj.create_time,date,full);
                 return initDate(date, full);
             },
-            likeCollectHandle: function (isLike) {//用户点击喜欢0,用户点击收藏1
+
+            routeChange: function () {
+                let that = this;
+                that.aid = that.$route.params.id;//获取传参的aid
+                //判断用户是否存在
+                if (localStorage.getItem('userInfo')) {
+                    that.hasLogin = true;
+                    that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                    that.userId = that.userInfo.userId;
+                    // console.log(that.userInfo);
+                } else {
+                    that.hasLogin = false;
+                }
+                //获取详情接口
+                getArticleInfo(that.aid, that.userId, function (msg) {
+                    // console.log('文章详情',msg);
+                    that.detailObj = msg;
+                    that.likeCount = msg.like ? msg.like.length : 0;
+                    that.collectCount = msg.collect ? msg.collect.length : 0;
+                    that.likeArt = msg.user_like;
+                    that.collectArt = msg.user_collect;
+                    that.create_time = initDate(that.detailObj.create_time, 'all');
+                })
+            },
+
+            likeCollectHandle: function (isLike) {//用户点赞0,用户收藏1
                 let that = this;
                 if (localStorage.getItem('userInfo')) {//判断是否登录
                     let tip = '';
@@ -94,26 +118,34 @@
                         if (!that.likeArt) {
                             that.likeCount += 1;
                             that.likeArt = true;
-                            tip = '已点赞';
+                            tip = '已收藏';
                         } else {
                             that.likeCount -= 1;
                             that.likeArt = false;
-                            tip = '已取消点赞'
+                            tip = '已取消收藏'
                         }
 
                     } else {
                         if (!that.collectArt) {
                             that.collectCount += 1;
                             that.collectArt = true;
-                            tip = '已收藏';
+                            tip = '已点赞';
                         } else {
                             that.collectCount -= 1;
                             that.collectArt = false;
-                            tip = '已取消收藏';
+                            tip = '已取消点赞';
                         }
                     }
                     getArtLikeCollect(that.userId, that.aid, isLike, function () {
                         // console.log('喜欢收藏成功',msg);
+                        //获取详情接口
+                        getArticleInfo(that.aid, that.userId, function (msg) {
+                            // console.log('文章详情',msg);
+                            that.likeCount = msg.like ? msg.like.length : 0;
+                            that.collectCount = msg.collect ? msg.collect.length : 0;
+                            that.likeArt = msg.user_like;
+                            that.collectArt = msg.user_collect;
+                        });
                         that.$message({
                             message: tip,
                             type: 'success'
@@ -133,29 +165,7 @@
                     });
                 }
             },
-            routeChange: function () {
-                let that = this;
-                that.aid = that.$route.params.id;//获取传参的aid
-                //判断用户是否存在
-                if (localStorage.getItem('userInfo')) {
-                    that.hasLogin = true;
-                    that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-                    that.userId = that.userInfo.userId;
-                    // console.log(that.userInfo);
-                } else {
-                    that.hasLogin = false;
-                }
-                //获取详情接口
-                getArticleInfo(that.aid, that.userId, function (msg) {
-                    // console.log('文章详情',msg);
-                    that.detailObj = msg;
-                    that.likeCount = msg.like_count ? msg.like_count : 0;
-                    that.collectCount = msg.collect_count ? msg.collect_count : 0;
-                    that.likeArt = msg.user_like;
-                    that.collectArt = msg.user_collect;
-                    that.create_time = initDate(that.detailObj.create_time, 'all');
-                })
-            }
+
         },
     }
 </script>

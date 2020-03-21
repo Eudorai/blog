@@ -19,16 +19,15 @@
                             <i class="fa fa-fw fa-clock-o"></i>
                             <span v-html="showInitDate(item.create_time,'all')">{{showInitDate(item.create_time,'all')}}</span>
                         </span>
-                        <i class="fa fa-fw fa-eye"></i>{{item.browse_count}} 次围观 •
                         <i class="fa fa-fw fa-comments"></i>活捉 {{item.comment_count}} 条评论 •
                         <span class="rateBox">
-                            <i class="fa fa-fw fa-heart"></i>{{item.like_count?item.like_count:0}}点赞 •
-                            <i class="fa fa-fw fa-star"></i>{{item.collect_count?item.collect_count:0}}收藏
+                            <i class="fa fa-fw fa-heart"></i>{{item.like?item.like.length:0}}点赞 •
+                            <i class="fa fa-fw fa-star"></i>{{item.collect?item.collect.length:0}}收藏
                         </span>
                     </h2>
                 </header>
                 <div class="article-content">
-                    <p>{{item.body}}</p>
+                    <p v-html="item.content"></p>
                 </div>
                 <div class="viewdetail">
                     <a class="tcolors-bg" @click="toDetail(item._id)">
@@ -38,7 +37,7 @@
             </el-col>
 
             <!-- 分页器 -->
-            <el-col style="display: flex;justify-content: center">
+            <el-col style="display: flex;justify-content: center" v-if="articleList.length">
                 <pagination :list="articleList" @sizeChange="handleSizeChange"
                             @currentChange="handleCurrentChange"></pagination>
             </el-col>
@@ -89,9 +88,7 @@
                 //初始化
                 ShowArticleAll(that.keywords, (result) => {
                     // console.log(result);
-                    const msg = result.data;
-                    window.console.info(msg.length);
-                    that.articleList = msg;
+                    that.articleList = result;
                     // console.log(that.artId);
                 })
             },

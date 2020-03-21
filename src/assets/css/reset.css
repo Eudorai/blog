@@ -54,6 +54,7 @@ ol, ul {
 
 a {
     text-decoration: none;
+    color: #444;
 }
 
 .container {
@@ -119,7 +120,7 @@ a {
 }
 
 
-.tcommonBox header h1:hover{
+.tcommonBox header h1:hover {
     transform: scale(1.1);
 }
 
@@ -160,6 +161,7 @@ a {
 /*标题和按钮*/
 .s-item .article-content p {
     line-height: 24px;
+    text-indent: 28px;
 }
 
 .s-item .viewdetail {
@@ -180,5 +182,30 @@ a {
 .s-item .viewdetail a:hover {
     background: #00A7E0;
     opacity: 0.6;
+}
+
+.tcolors {
+    color: var(--tcolors)
+}
+
+.tcolorm {
+    color: var(--tcolorm)
+}
+
+.tcolord {
+    color: var(--tcolord)
+}
+
+.tcolors-bg {
+    background: var(--tcolors);
+    transition: all .3s ease-in-out;
+}
+
+.tcolord-bg {
+    background: var(--tcolord);
+}
+
+.tcolors-bg:hover {
+    background: var(--tcolord);
 }
 

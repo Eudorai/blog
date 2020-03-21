@@ -54,10 +54,6 @@
 
 <script>
     // import axios from 'axios'
-    import {
-        LoginOut,
-        AboutMeData
-    } from '../utils/server.js'
 
     export default {
         name: "Header",
@@ -74,13 +70,7 @@
             }
         },
         created() { //生命周期函数
-            let that = this;
             this.routeChange();
-            //关于我的信息
-            AboutMeData(function (msg) {
-                // console.log('关于我',msg);
-                that.$store.state.aboutMeObj = msg;
-            })
             // axios.get('http://localhost:3000/blog/api/articles/'+'5e71bff0a1cb0803813ea8d2').then(num=>{
             //     window.console.info(num);
             // })
@@ -112,7 +102,6 @@
                 console.log(e);
                 if (this.input === '') {
                     this.$store.state.keywords = '';
-                    this.$router.push({path: '/'});
                 }
             },
             //input 输入 enter
@@ -122,8 +111,6 @@
                 console.log('回车搜索', keyCode, e);
                 if (this.input) {
                     this.$store.state.keywords = this.input;
-                    //todo
-                    this.$router.push({path: '/Share?keywords=' + this.input});
                 }
             },
             loginFun: function (msg) { //用户登录和注册跳转
@@ -144,31 +131,13 @@
             },
             // 用户退出登录
             userLogout: function () {
-                let that = this;
                 this.$confirm('是否确认退出?', '退出提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    // console.log(that.$route.path);
-                    LoginOut(localStorage.getItem('accessToken'), function (result) {
-                        console.log(result);
-                        if (localStorage.getItem('userInfo')) {
-                            localStorage.removeItem('userInfo');
-                            that.haslogin = false;
-                            //    that.$router.replace({path:that.$route.fullPath});
-                            window.location.reload();
-                            that.$message({
-                                type: 'success',
-                                message: '退出成功!'
-                            });
-                        }
-                        if (that.$route.path === '/user') {
-                            that.$router.push({
-                                path: '/'
-                            });
-                        }
-                    })
+                    window.localStorage.clear();
+                    this.$router.push('/login')
                 }).catch(() => {
                     //
                 });

@@ -10,7 +10,7 @@ import './assets/css/reset.css'
 import ElementUI from 'element-ui'
 import './theme/index.css'
 
-require("./mock");
+// require("./mock");
 
 Vue.use(ElementUI);
 
@@ -45,7 +45,7 @@ axios.interceptors.response.use(res => {
         type: 'error',
         message: err.response.data
     });
-    router.push('/login');
+    // router.push('/login');
     return Promise.reject(err)
 
 });

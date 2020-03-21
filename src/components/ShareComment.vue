@@ -74,6 +74,7 @@
                 aid: 0,//文章id
                 userInfo: '',//用户信息
                 nickname: '',//用户昵称
+                avatar:'',//用户头像
                 sendTip: '发送~',
                 hasLogin: false,
 
@@ -92,9 +93,9 @@
                 let that = this;
                 if (that.textarea) {
                     if (that.hasLogin) {
-                        that.sendTip = '咻~~';
-                        setArticleComment(that.textarea, that.nickname, that.aid, function () {
+                        setArticleComment(that.textarea, that.nickname,that.avatar, that.aid, function () {
                             //   console.log(msg);
+                            that.sendTip = '咻~~';
                             that.textarea = '';
                             that.routeChange();
                             let timer02 = setTimeout(function () {
@@ -133,12 +134,13 @@
                     that.hasLogin = true;
                     that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
                     that.nickname = that.userInfo.nickname;
+                    that.avatar = that.userInfo.avatar;
                     //   console.log(that.userInfo);
                 } else {
                     that.hasLogin = false;
                 }
                 ArticleComment(that.aid, function (result) {//查询列表
-                    that.commentList = result.data;
+                    that.commentList = result;
                 })
             },
 
