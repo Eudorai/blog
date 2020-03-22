@@ -120,10 +120,6 @@ a {
 }
 
 
-.tcommonBox header h1:hover {
-    transform: scale(1.1);
-}
-
 .tcommonBox header h2 {
     margin: 10px 0;
     line-height: 24px;
@@ -159,7 +155,7 @@ a {
 }
 
 /*标题和按钮*/
-.s-item .article-content p {
+.article-content p {
     line-height: 24px;
     text-indent: 28px;
 }
@@ -207,5 +203,9 @@ a {
 
 .tcolors-bg:hover {
     background: var(--tcolord);
+}
+
+.maxW{
+    max-width: 100%;
 }
 

@@ -25,6 +25,19 @@ const UserLogin = (username, password, callback) => {
     })
 };
 
+//修改用户信息
+const UserInfoSave = (obj, callback) => {
+    let url = portUrl + '/user_info';
+    let data = {
+        'nickname': obj.nickname,
+        'avatar': obj.avatar,
+    };
+    // console.log(data);
+    axios.put(url, {params: data}).then(num => {
+        callback && callback(num.data);
+    })
+}
+
 //查询用户信息
 const AboutMeData = (callback) => {
     let url = portUrl + '/user_info';
@@ -87,6 +100,7 @@ const ShowArticleAll = (articleName, callback) => {
         callback && callback(num.data);
     })
 };
+
 //文章点击收藏 点击喜欢
 const getArtLikeCollect = (userId, artId, isLike, callback) => {
     let url = '';
@@ -100,6 +114,19 @@ const getArtLikeCollect = (userId, artId, isLike, callback) => {
     axios.get(url).then(num => {
         callback && callback(num.data);
 
+    })
+};
+
+//查询用户收藏列表
+const getCollectList = (articleName, callback) => {
+    let url = '';
+    if (articleName) {
+        url = portUrl + '/user_collect?title=' + articleName;
+    } else {
+        url = portUrl + '/user_collect';
+    }
+    axios.get(url).then(num => {
+        callback && callback(num.data);
     })
 };
 
@@ -117,18 +144,24 @@ const getArticleInfo = (artId, userId, callback) => {
     })
 };
 
-//文章评论ok
+//文章评论
 const setArticleComment = (content, nickname, avatar, article_id, callback) => {
     let time = new Date().toLocaleString();
     window.console.info(time);
     //回复评论
-    let url = portUrl + '/comment?content=' + content + '&nickname=' + nickname + '&article_id=' + article_id + '&time=' + time + '&avatar' + avatar;
-    axios.get(url).then(num => {
+    let url = portUrl + '/commentcreate';
+    let params = {};
+    params.article_id = article_id;
+    params.content = content;
+    params.nickname = nickname;
+    params.time = time;
+    params.avatar = avatar;
+    axios.post(url, params).then(num => {
         callback && callback(num.data);
     })
 };
 
-//查询文章评论数据ok
+//查询文章评论数据
 const ArticleComment = (artId, callback) => {
     let url = portUrl + '/comment';
     axios.get(url, {params: {art_id: artId}}).then(num => {
@@ -149,4 +182,6 @@ export {
     getArticleInfo,//文章详情
     setArticleComment,//设置文章评论
     ArticleComment,//文章评论列表
+    UserInfoSave,//修改用户信息
+    getCollectList,//用户收藏列表
 }

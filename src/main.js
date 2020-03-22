@@ -16,8 +16,6 @@ Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 
-window.console.info(sessionStorage);
-
 // 默认图片
 Vue.filter('IMG', function (value) {
     if (value) {

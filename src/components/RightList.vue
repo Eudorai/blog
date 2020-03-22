@@ -53,8 +53,8 @@
             return {
                 catchMeObj: { //个人信息
                     git: 'https://github.com/Eudorai',
-                    qq: '../assets/img/qq.jpg',
-                    wechat: '../assets/img/wechat.jpeg',
+                    qq: 'http://localhost:3000/uploads/qq.jpg',
+                    wechat: 'http://localhost:3000/uploads/wechat.jpeg',
                 },
                 loveMe: false,
                 likeNum: 0,//do you like me 点击量

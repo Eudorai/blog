@@ -17,17 +17,19 @@
                 </span>
             </h2>
         </header>
-        <div class="article-content" v-html="detailObj.content"></div>
+        <div class="article-content">
+            <p v-html="detailObj.content"></p>
+        </div>
         <div class="dshareBox bdsharebuttonbox" data-tag="share_1">
             分享到:
             <a href="javascript:void(0);" class="ds-weibo fa fa-fw fa-weibo" data-cmd="tsina"></a>
             <a href="javascript:void(0);" class="ds-qq fa fa-fw fa-qq" data-cmd="tqq"></a>
             <a href="javascript:void(0);" class="ds-wechat fa fa-fw fa-wechat" data-cmd="weixin"></a>
             <div class="dlikeColBox">
-                <div class="dlikeBox" @click="likeCollectHandle(1)">
-                    <i :class="likeArt?'fa fa-fw fa-heart':'fa fa-fw fa-heart-o'"></i>喜欢 | {{likeCount}}
+                <div class="dlikeBox" @click="likeCollectHandle(0)">
+                    <i :class="likeArt?'fa fa-fw fa-heart':'fa fa-fw fa-heart-o'"></i>点赞 | {{likeCount}}
                 </div>
-                <div class="dcollectBox" @click="likeCollectHandle(2)">
+                <div class="dcollectBox" @click="likeCollectHandle(1)">
                     <i :class="collectArt?'fa fa-fw fa-star':'fa fa-fw fa-star-o'"></i>收藏 | {{collectCount}}
                 </div>
             </div>
@@ -93,7 +95,7 @@
                 if (localStorage.getItem('userInfo')) {
                     that.hasLogin = true;
                     that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-                    that.userId = that.userInfo.userId;
+                    that.userId = that.userInfo._id;
                     // console.log(that.userInfo);
                 } else {
                     that.hasLogin = false;
@@ -114,28 +116,7 @@
                 let that = this;
                 if (localStorage.getItem('userInfo')) {//判断是否登录
                     let tip = '';
-                    if (isLike === 1) {
-                        if (!that.likeArt) {
-                            that.likeCount += 1;
-                            that.likeArt = true;
-                            tip = '已收藏';
-                        } else {
-                            that.likeCount -= 1;
-                            that.likeArt = false;
-                            tip = '已取消收藏'
-                        }
 
-                    } else {
-                        if (!that.collectArt) {
-                            that.collectCount += 1;
-                            that.collectArt = true;
-                            tip = '已点赞';
-                        } else {
-                            that.collectCount -= 1;
-                            that.collectArt = false;
-                            tip = '已取消点赞';
-                        }
-                    }
                     getArtLikeCollect(that.userId, that.aid, isLike, function () {
                         // console.log('喜欢收藏成功',msg);
                         //获取详情接口
@@ -145,11 +126,28 @@
                             that.collectCount = msg.collect ? msg.collect.length : 0;
                             that.likeArt = msg.user_like;
                             that.collectArt = msg.user_collect;
+
+                            //收藏
+                            if (isLike === 1) {
+                                if (that.collectArt) {
+                                    tip = '已收藏';
+                                } else {
+                                    tip = '已取消收藏';
+                                }
+                            } else {
+                                //点赞
+                                if (that.likeArt) {
+                                    tip = '已点赞';
+                                } else {
+                                    tip = '已取消点赞';
+                                }
+                            }
+                            that.$message({
+                                message: tip,
+                                type: 'success'
+                            });
                         });
-                        that.$message({
-                            message: tip,
-                            type: 'success'
-                        });
+
                     })
                 } else {//未登录 前去登录。
                     that.$confirm('登录后即可点赞和收藏，是否前往登录页面?', '提示', {
@@ -159,7 +157,7 @@
                     }).then(() => {//确定，跳转至登录页面
                         //储存当前页面路径，登录成功后跳回来
                         localStorage.setItem('logUrl', that.$route.fullPath);
-                        that.$router.push({path: '/Login?login=1'});
+                        that.$router.push({path: '/login?login=1'});
                     }).catch(() => {//取消关闭弹窗
 
                     });
