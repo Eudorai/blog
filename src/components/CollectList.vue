@@ -18,8 +18,10 @@
                             </a>
                         </h1>
                         <h2>
-                            <i class="fa fa-fw fa-user"></i>发表于
-                            <i class="fa fa-fw fa-clock-o"></i>{{showInitDate(item.create_time,'newDate')}} •
+                            <span class="timeBox">
+                                <i class="fa fa-fw fa-user"></i>发表于
+                                <i class="fa fa-fw fa-clock-o"></i>{{showInitDate(item.create_time,'newDate')}}
+                            </span>
                             <i class="fa fa-fw fa-comments"></i>活捉 {{item.comment_count}} 条 •
                             <span class="rateBox">
                                 <i class="fa fa-fw fa-heart"></i>{{item.like?item.like.length:0}}点赞 •
@@ -82,13 +84,12 @@
                 if (localStorage.getItem('userInfo')) {
                     that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
                     that.userId = that.userInfo._id;
-                    // console.log(that.userInfo);
+                    that.articleName = that.$store.state.keywords;
+                    getCollectList(that.articleName, (result) => {
+                        that.articleList = result;
+                    })
                 }
-                that.articleName = that.$store.state.keywords;
-                // console.log(that.classId);
-                getCollectList(that.articleName, (result) => {
-                    that.articleList = result;
-                })
+
             },
             //取消收藏
             cancelCollect: function (id) {

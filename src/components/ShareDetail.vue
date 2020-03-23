@@ -8,7 +8,7 @@
             <h1>{{detailObj.title}}</h1>
             <h2>
                 <span class="timeBox">
-                    <i class="fa fa-fw fa-user"></i>发表于 <span>{{detailObj.create_time}}</span>
+                    <i class="fa fa-fw fa-user"></i>发表于 <span>{{create_time}}</span>
                 </span>
                 <i class="fa fa-fw fa-comments"></i>活捉 {{detailObj.comment_count}} 条评论 •
                 <span class="rateBox">
@@ -80,6 +80,7 @@
                 userId: '',//用户id
                 userInfo: '',//用户信息
                 pdonate: true,//打开赞赏控制,
+                create_time:''
             }
         },
         methods: {
@@ -118,7 +119,6 @@
                     let tip = '';
 
                     getArtLikeCollect(that.userId, that.aid, isLike, function () {
-                        // console.log('喜欢收藏成功',msg);
                         //获取详情接口
                         getArticleInfo(that.aid, that.userId, function (msg) {
                             // console.log('文章详情',msg);

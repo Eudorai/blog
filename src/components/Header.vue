@@ -100,18 +100,14 @@
             //input change 事件
             searchChangeFun(e) {
                 console.log(e);
-                if (this.input === '') {
-                    this.$store.state.keywords = '';
-                }
+                this.$store.state.keywords = this.input;
             },
             //input 输入 enter
             searchEnterFun: function (e) {
                 const keyCode = window.event ? e.keyCode : e.which;
                 console.log('CLICK', this.input, keyCode);
                 console.log('回车搜索', keyCode, e);
-                if (this.input) {
-                    this.$store.state.keywords = this.input;
-                }
+                this.$store.state.keywords = this.input;
             },
             loginFun: function (msg) { //用户登录和注册跳转
                 //储存当前页面路径，登录成功后跳回来

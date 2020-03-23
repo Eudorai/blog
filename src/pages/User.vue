@@ -113,7 +113,7 @@
             //上传头像
             handleAvatarSuccess(res) {
                 let that = this;
-                window.console.info(res.url);
+                // window.console.info(res.url);
                 this.$set(that.userInfo,'avatar',res.url);
             },
 

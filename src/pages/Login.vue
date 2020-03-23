@@ -61,7 +61,7 @@
                     </el-input>
                     <el-alert
                             v-show="nusernameErr"
-                            title="用户名错误"
+                            title="用户名不能为空"
                             type="error"
                             show-icon :closable="false">
                     </el-alert>
