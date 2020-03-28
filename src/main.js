@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './router/router'
 import store from './store'
 import axios from 'axios'
 
@@ -9,8 +9,6 @@ import './assets/css/reset.css'
 //引入element-ui
 import ElementUI from 'element-ui'
 import './theme/index.css'
-
-// require("./mock");
 
 Vue.use(ElementUI);
 
