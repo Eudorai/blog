@@ -79,7 +79,7 @@
             routeChange: function () {
                 let that = this;
                 this.activeIndex = this.$route.path === '/' ? '/home' : this.$route.path;
-                if (localStorage.getItem('userInfo')) { //存储用户信息
+                if (localStorage.getItem('userInfo')) { //用户信息
                     that.hasLogin = true;
                     that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
                     // console.log(that.userInfo);

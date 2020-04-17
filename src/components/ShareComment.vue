@@ -140,7 +140,7 @@
                     that.hasLogin = false;
                 }
                 ArticleComment(that.aid, function (result) {//查询列表
-                    that.commentList = result;
+                    that.commentList = result.reverse();
                 })
             },
 

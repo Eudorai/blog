@@ -88,7 +88,7 @@
                 //初始化
                 ShowArticleAll(that.keywords, (result) => {
                     // console.log(result);
-                    that.articleList = result;
+                    that.articleList = result.reverse();
                     // console.log(that.artId);
                 })
             },
